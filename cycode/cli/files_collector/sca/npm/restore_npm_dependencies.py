@@ -20,7 +20,7 @@ class RestoreNpmDependencies(BaseRestoreDependencies):
 
     def get_command(self, manifest_file_path: str) -> List[str]:
         return [
-            'npm',
+            'npmm',
             'install',
             '--prefix',
             self.prepare_manifest_file_path_for_command(manifest_file_path),

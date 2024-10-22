@@ -137,7 +137,7 @@ def restore_handlers(context: click.Context, is_git_diff: bool) -> List[BaseRest
         RestoreMavenDependencies(context, is_git_diff, BUILD_GRADLE_DEP_TREE_TIMEOUT),
         RestoreNugetDependencies(context, is_git_diff, BUILD_NUGET_DEP_TREE_TIMEOUT),
         RestoreNpmDependencies(context, is_git_diff, BUILD_NPM_DEP_TREE_TIMEOUT),
-        RestoreYarnDependencies(context, is_git_diff, BUILD_NPM_DEP_TREE_TIMEOUT)
+        RestoreYarnDependencies(context, is_git_diff, BUILD_NPM_DEP_TREE_TIMEOUT),
     ]
 
 

@@ -9,6 +9,7 @@ from cycode.cli.models import Document
 YARN_PROJECT_FILE_EXTENSIONS = ['.json']
 YARN_LOCK_FILE_NAME = 'yarn.lock'
 YARN_MANIFEST_FILE_NAME = 'package.json'
+YARN_PACKAGES_FOLDER_NAME = 'node_modules'
 
 
 class RestoreYarnDependencies(BaseRestoreDependencies):
@@ -21,11 +22,12 @@ class RestoreYarnDependencies(BaseRestoreDependencies):
     def get_command(self, manifest_file_path: str) -> List[str]:
         return [
             'yarn',
-            'install',
             '--cwd',
             self.prepare_manifest_file_path_for_command(manifest_file_path),
-            '--pure-lockfile',
-            '--ignore-scripts',
+            '&&',
+            'rm',
+            '-rf',
+            self.prepare_packages_folder_path_for_command(manifest_file_path),
         ]
 
     def get_lock_file_name(self) -> str:
@@ -36,3 +38,6 @@ class RestoreYarnDependencies(BaseRestoreDependencies):
 
     def prepare_manifest_file_path_for_command(self, manifest_file_path: str) -> str:
         return manifest_file_path.replace(os.sep + YARN_MANIFEST_FILE_NAME, '')
+
+    def prepare_packages_folder_path_for_command(self, manifest_file_path: str) -> str:
+        return manifest_file_path.replace(os.sep + YARN_MANIFEST_FILE_NAME, os.sep + YARN_PACKAGES_FOLDER_NAME)

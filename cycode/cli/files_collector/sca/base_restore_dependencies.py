@@ -56,9 +56,11 @@ class BaseRestoreDependencies(ABC):
             restore_file_content = get_file_content(restore_file_path)
         else:
             output_file_path = restore_file_path if self.create_output_file_manually else None
-            execute_command(
+            result = execute_command(
                 self.get_command(manifest_file_path), manifest_file_path, self.command_timeout, output_file_path
             )
+            if result is None:
+                return None
             restore_file_content = get_file_content(restore_file_path)
 
         return Document(restore_file_path, restore_file_content, self.is_git_diff)
